@@ -13,10 +13,9 @@
 ## ⬅️ Đầu vào từ lab trước
 | Từ | File | Mức | Dùng để làm gì |
 |---|---|---|---|
-| F2-3 | `F2-3/notebook/F2_prompt_chain.py` | **Bắt buộc** | F6_cost_guardrail.py nạp đúng file này (biến F2_CHAIN): 1 task = 1 lần chạy chuỗi F2-3 của chính học viên, cùng prompt version, cùng input. |
+| F2-3 | `F2-3/notebook/*` | **Bắt buộc** | 1 task = 1 lần chạy chuỗi F2-3 của chính học viên (cùng prompt version, cùng input). F6_cost_guardrail v1.1 nạp file .py qua biến F2_CHAIN. |
 | F2-3 | `prompts/PROMPT_LIBRARY.md` | **Bắt buộc** | Ghi đúng prompt ID + version dùng để đo trên 2 model. |
 | F2-3 | `F2-3/AI_Output_Evaluation.md` | Khuyến nghị | Cách chấm schema/coverage/hallucination của F2-3 dùng lại cho điểm chất lượng. |
-| F2-3 | `F2-3/f2_results.json` | Khuyến nghị | Số condition / req_id phủ / hallucination của F2-3 làm mốc so chất lượng 2 model. |
 
 Kiểm tra trước khi bắt đầu: `python scripts/check_lab_chain.py F6-2 --mode start`
 

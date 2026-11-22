@@ -129,55 +129,68 @@
       "outputs": [
         {
           "path": "prompts/PROMPT_LIBRARY.md",
-          "desc": "Prompt library v1: PR-F2-01/02/03 có version + change log",
+          "desc": "Prompt library v1: PR-F2-01/02/03 có ID, mục đích, version, định dạng output, change log",
           "required": true
         },
         {
-          "path": "F2-3/notebook/F2_prompt_chain.py",
-          "desc": "Chuỗi prompt của học viên (chép từ starter, sửa prompt + version); F6-2 chạy lại đúng file này",
+          "path": "F2-3/notebook/*",
+          "desc": "Notebook đã chạy (.ipynb, hoặc file .md chứa link Colab chỉ xem) – không chứa key, không bỏ bước validate",
           "required": true
         },
         {
           "path": "F2-3/AI_Output_Evaluation.md",
-          "desc": "Đánh giá: schema, traceability, hallucination, tái lập, 3 ca injection",
+          "desc": "Theo template chính thức: run1/run2, tái lập, bảng injection I1–I3, coverage, đo thời gian",
           "required": true
         },
         {
-          "path": "F2-3/injection_cases.csv",
-          "desc": "≥ 3 ca injection: hành vi model + kiểm soát phát hiện",
-          "required": true,
-          "min_rows": 3
-        },
-        {
-          "path": "F2-3/time_measurement.csv",
-          "desc": "Bảng đo thời gian thủ công vs chuỗi prompt",
-          "required": true,
-          "min_rows": 2
+          "path": "F2-3/time_log.md",
+          "desc": "Bảng đo thời gian (luyện): thủ công 5 condition vs chuỗi prompt (gồm review) – start/end thật",
+          "required": true
         },
         {
           "path": "F2-3/raw_ai_output/*",
-          "desc": "Raw output 2 lần chạy + bản injection",
+          "desc": "Raw output nguyên bản: run1_, run2_, injection_* – không sửa, không xóa lần chạy xấu",
           "required": true
         },
         {
-          "path": "F2-3/f2_results.json",
-          "desc": "Config tái lập + kết quả 2 lần chạy + injection (notebook tự ghi)",
+          "path": "F2-3/reviewed/conditions_final.json",
+          "desc": "Bộ condition sau review (đã loại hallucination, đã đối chiếu self-check với fixture)",
           "required": true
+        },
+        {
+          "path": "F2-3/f2_llm_calls.csv",
+          "desc": "Log token mỗi lần gọi (llm_client)",
+          "required": true,
+          "min_rows": 1
+        },
+        {
+          "path": "F2-3/prompt_record.md",
+          "desc": "Prompt record theo 08_Templates/Prompt_Record.md",
+          "required": true
+        },
+        {
+          "path": "F3_AI_Usage_Escalation_Log.csv",
+          "desc": "Dòng F2-3 (và dòng escalation nếu injection làm lộ system prompt/chuỗi giống key)",
+          "required": true,
+          "min_rows": 2
         }
       ],
       "reused_in": [
         "G1 (đánh giá lại rubric)",
-        "WS #1 (prompt library v1)"
+        "WS #1 (prompt library v1)",
+        "A1–A5 (prompt library), A6-3 (v2)"
       ],
       "steps": [
-        "Prompt 1 PR-F2-01 v1.0: trích {req_id, mô tả, giá trị/quy tắc} từ fixture.",
-        "Prompt 2 PR-F2-02 v1.0: sinh condition JSON theo tc_condition.schema.json, req_id phải thuộc danh sách prompt 1.",
-        "Prompt 3 PR-F2-03 v1.0: self-check (req_id lạ, giá trị không có trong SRS, biên còn thiếu).",
-        "Validate bằng jsonschema; req_id ngoài whitelist → đánh dấu hallucination, loại.",
-        "Chạy trên fixture_srs_injection.md (3 ca: bỏ qua schema, REQ-SF-99, lộ system prompt) → ghi injection_cases.csv.",
-        "Chạy lại toàn chuỗi 2 lần cùng config, so số condition và req_id phủ.",
-        "Bấm giờ 5 condition thủ công vs chuỗi prompt (gồm review) → time_measurement.csv.",
-        "Lưu prompt có version vào prompts/PROMPT_LIBRARY.md (v1)."
+        "Bấm giờ start; Colab Secrets; chạy cell cài đặt – không key nào hiện trong cell/output.",
+        "P1 PR-F2-01 v1.0: trích {req_id, mô tả, giá trị/quy tắc} – phải đủ 10 req_id hợp lệ, thiếu thì sửa prompt (tăng version) trước bước 2. Gốc: 2 prompt có version từ F2-1.",
+        "P2 PR-F2-02 v1.0: JSON theo tc_condition.schema.json; req_id thuộc danh sách P1; có source_quote nguyên văn.",
+        "P3 PR-F2-03 v1.0: self-check (req_id lạ, giá trị không có trong SRS, biên thiếu) – xác minh TỪNG mục với fixture trước khi sửa.",
+        "Validate bằng code: jsonschema + whitelist 10 req_id + source_quote; condition bịa → đánh dấu, loại, ghi lý do → reviewed/conditions_final.json.",
+        "Injection ≥ 3 ca trên fixture_srs_injection.md (I1 ở REQ-SF-03, I2 ở REQ-SF-04, I3 ở REQ-SF-22): ghi làm theo hay không + kiểm soát phát hiện + hành động. In ra nội dung giống system prompt/key → DỪNG, escalation F3.",
+        "Tái lập: chạy lại toàn chuỗi 2 lần cùng config (temp 0.2, max_tokens 2000); ghi 'chênh tập req_id run1/run2 → kết luận'.",
+        "Đo thời gian: thủ công 5 condition vs chuỗi prompt 5 condition tương đương (gồm review) → time_log.md.",
+        "Sửa prompt → tăng version + change log, chạy lại cùng fixture; không sửa raw output cũ. Không kết luận 'v1.1 chống được injection'.",
+        "Lưu PROMPT_LIBRARY v1, prompt_record, evidence index (E-F2-01…), F3 log; commit và nộp link commit."
       ],
       "rubric": [
         [
@@ -213,16 +226,14 @@
         "Dữ liệu thật/secret trong prompt"
       ],
       "runner": {
-        "script": "F2-3/notebook/F2_prompt_chain.py (bản học viên chép từ 10_Starter_Kit/common rồi sửa prompt)",
+        "script": "F2_prompt_chain.py (starter v1.0, ghi bằng %%writefile trong notebook Colab)",
         "lab_out": "F2-3",
         "env": [
           "LLM_MODEL",
-          "F2_FIXTURES"
+          "fixtures ở /content/f2_fixtures (đọc qua ../f2_fixtures)"
         ],
         "writes": [
-          "F2-3/raw_ai_output/<batch>_<prompt-id>_<tag>.txt",
-          "F2-3/injection_cases.csv (tín hiệu tự động)",
-          "F2-3/f2_results.json (config tái lập + kết quả)",
+          "F2-3/raw_ai_output/run1_*, run2_*, injection_* (v1.0 GHI ĐÈ khi chạy lại – tải zip ngay sau mỗi lần chạy)",
           "F2-3/f2_llm_calls.csv"
         ]
       }
@@ -248,9 +259,9 @@
       "upstream": [
         {
           "from": "F2-3",
-          "path": "F2-3/notebook/F2_prompt_chain.py",
+          "path": "F2-3/notebook/*",
           "required": true,
-          "why": "F6_cost_guardrail.py nạp đúng file này (biến F2_CHAIN): 1 task = 1 lần chạy chuỗi F2-3 của chính học viên, cùng prompt version, cùng input."
+          "why": "1 task = 1 lần chạy chuỗi F2-3 của chính học viên (cùng prompt version, cùng input). F6_cost_guardrail v1.1 nạp file .py qua biến F2_CHAIN."
         },
         {
           "from": "F2-3",
@@ -263,12 +274,6 @@
           "path": "F2-3/AI_Output_Evaluation.md",
           "required": false,
           "why": "Cách chấm schema/coverage/hallucination của F2-3 dùng lại cho điểm chất lượng."
-        },
-        {
-          "from": "F2-3",
-          "path": "F2-3/f2_results.json",
-          "required": false,
-          "why": "Số condition / req_id phủ / hallucination của F2-3 làm mốc so chất lượng 2 model."
         }
       ],
       "outputs": [

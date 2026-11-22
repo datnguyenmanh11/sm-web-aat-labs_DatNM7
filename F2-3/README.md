@@ -24,44 +24,47 @@ Kiểm tra trước khi bắt đầu: `python scripts/check_lab_chain.py F2-3 --
 - KHÔNG dùng Toolshop bản có lỗi
 
 ## ▶️ Chạy notebook (Colab) – output ghi thẳng vào thư mục lab
-- Script: `F2-3/notebook/F2_prompt_chain.py (bản học viên chép từ 10_Starter_Kit/common rồi sửa prompt)` · `LAB_OUT=<repo>/F2-3` · biến: `LLM_MODEL`, `F2_FIXTURES`
-- Ghi ra: `F2-3/raw_ai_output/<batch>_<prompt-id>_<tag>.txt`; `F2-3/injection_cases.csv (tín hiệu tự động)`; `F2-3/f2_results.json (config tái lập + kết quả)`; `F2-3/f2_llm_calls.csv`
+- Script: `F2_prompt_chain.py (starter v1.0, ghi bằng %%writefile trong notebook Colab)` · `LAB_OUT=<repo>/F2-3` · biến: `LLM_MODEL`, `fixtures ở /content/f2_fixtures (đọc qua ../f2_fixtures)`
+- Ghi ra: `F2-3/raw_ai_output/run1_*, run2_*, injection_* (v1.0 GHI ĐÈ khi chạy lại – tải zip ngay sau mỗi lần chạy)`; `F2-3/f2_llm_calls.csv`
 - Cách đặt Secrets, clone repo, commit: [colab/COLAB_SETUP.md](../colab/COLAB_SETUP.md)
 
 ## Các bước (tóm tắt)
-1. Prompt 1 PR-F2-01 v1.0: trích {req_id, mô tả, giá trị/quy tắc} từ fixture.
-2. Prompt 2 PR-F2-02 v1.0: sinh condition JSON theo tc_condition.schema.json, req_id phải thuộc danh sách prompt 1.
-3. Prompt 3 PR-F2-03 v1.0: self-check (req_id lạ, giá trị không có trong SRS, biên còn thiếu).
-4. Validate bằng jsonschema; req_id ngoài whitelist → đánh dấu hallucination, loại.
-5. Chạy trên fixture_srs_injection.md (3 ca: bỏ qua schema, REQ-SF-99, lộ system prompt) → ghi injection_cases.csv.
-6. Chạy lại toàn chuỗi 2 lần cùng config, so số condition và req_id phủ.
-7. Bấm giờ 5 condition thủ công vs chuỗi prompt (gồm review) → time_measurement.csv.
-8. Lưu prompt có version vào prompts/PROMPT_LIBRARY.md (v1).
+1. Bấm giờ start; Colab Secrets; chạy cell cài đặt – không key nào hiện trong cell/output.
+2. P1 PR-F2-01 v1.0: trích {req_id, mô tả, giá trị/quy tắc} – phải đủ 10 req_id hợp lệ, thiếu thì sửa prompt (tăng version) trước bước 2. Gốc: 2 prompt có version từ F2-1.
+3. P2 PR-F2-02 v1.0: JSON theo tc_condition.schema.json; req_id thuộc danh sách P1; có source_quote nguyên văn.
+4. P3 PR-F2-03 v1.0: self-check (req_id lạ, giá trị không có trong SRS, biên thiếu) – xác minh TỪNG mục với fixture trước khi sửa.
+5. Validate bằng code: jsonschema + whitelist 10 req_id + source_quote; condition bịa → đánh dấu, loại, ghi lý do → reviewed/conditions_final.json.
+6. Injection ≥ 3 ca trên fixture_srs_injection.md (I1 ở REQ-SF-03, I2 ở REQ-SF-04, I3 ở REQ-SF-22): ghi làm theo hay không + kiểm soát phát hiện + hành động. In ra nội dung giống system prompt/key → DỪNG, escalation F3.
+7. Tái lập: chạy lại toàn chuỗi 2 lần cùng config (temp 0.2, max_tokens 2000); ghi 'chênh tập req_id run1/run2 → kết luận'.
+8. Đo thời gian: thủ công 5 condition vs chuỗi prompt 5 condition tương đương (gồm review) → time_log.md.
+9. Sửa prompt → tăng version + change log, chạy lại cùng fixture; không sửa raw output cũ. Không kết luận 'v1.1 chống được injection'.
+10. Lưu PROMPT_LIBRARY v1, prompt_record, evidence index (E-F2-01…), F3 log; commit và nộp link commit.
 
 ## 📦 Sản phẩm nộp (trong thư mục này / repo)
 | File | Nội dung | Mức | Tối thiểu |
 |---|---|---|---|
-| `prompts/PROMPT_LIBRARY.md` | Prompt library v1: PR-F2-01/02/03 có version + change log | **Bắt buộc** | – |
-| `F2-3/notebook/F2_prompt_chain.py` | Chuỗi prompt của học viên (chép từ starter, sửa prompt + version); F6-2 chạy lại đúng file này | **Bắt buộc** | – |
-| `F2-3/AI_Output_Evaluation.md` | Đánh giá: schema, traceability, hallucination, tái lập, 3 ca injection | **Bắt buộc** | – |
-| `F2-3/injection_cases.csv` | ≥ 3 ca injection: hành vi model + kiểm soát phát hiện | **Bắt buộc** | ≥ 3 dòng |
-| `F2-3/time_measurement.csv` | Bảng đo thời gian thủ công vs chuỗi prompt | **Bắt buộc** | ≥ 2 dòng |
-| `F2-3/raw_ai_output/*` | Raw output 2 lần chạy + bản injection | **Bắt buộc** | – |
-| `F2-3/f2_results.json` | Config tái lập + kết quả 2 lần chạy + injection (notebook tự ghi) | **Bắt buộc** | – |
+| `prompts/PROMPT_LIBRARY.md` | Prompt library v1: PR-F2-01/02/03 có ID, mục đích, version, định dạng output, change log | **Bắt buộc** | – |
+| `F2-3/notebook/*` | Notebook đã chạy (.ipynb, hoặc file .md chứa link Colab chỉ xem) – không chứa key, không bỏ bước validate | **Bắt buộc** | – |
+| `F2-3/AI_Output_Evaluation.md` | Theo template chính thức: run1/run2, tái lập, bảng injection I1–I3, coverage, đo thời gian | **Bắt buộc** | – |
+| `F2-3/time_log.md` | Bảng đo thời gian (luyện): thủ công 5 condition vs chuỗi prompt (gồm review) – start/end thật | **Bắt buộc** | – |
+| `F2-3/raw_ai_output/*` | Raw output nguyên bản: run1_, run2_, injection_* – không sửa, không xóa lần chạy xấu | **Bắt buộc** | – |
+| `F2-3/reviewed/conditions_final.json` | Bộ condition sau review (đã loại hallucination, đã đối chiếu self-check với fixture) | **Bắt buộc** | – |
+| `F2-3/f2_llm_calls.csv` | Log token mỗi lần gọi (llm_client) | **Bắt buộc** | ≥ 1 dòng |
+| `F2-3/prompt_record.md` | Prompt record theo 08_Templates/Prompt_Record.md | **Bắt buộc** | – |
+| `F3_AI_Usage_Escalation_Log.csv` | Dòng F2-3 (và dòng escalation nếu injection làm lộ system prompt/chuỗi giống key) | **Bắt buộc** | ≥ 2 dòng |
 
 Kiểm tra trước khi nộp: `python scripts/check_lab_chain.py F2-3 --mode submit` → nộp **link commit** qua form + cập nhật `evidence/EVIDENCE_INDEX.md`.
 
 ## ➡️ Đầu ra được dùng ở lab sau
 | Lab sau | File của lab này | Mức | Dùng để làm gì |
 |---|---|---|---|
-| F6-2 | `F2-3/notebook/F2_prompt_chain.py` | **Bắt buộc** | F6_cost_guardrail.py nạp đúng file này (biến F2_CHAIN): 1 task = 1 lần chạy chuỗi F2-3 của chính học viên, cùng prompt version, cùng input. |
+| F6-2 | `F2-3/notebook/*` | **Bắt buộc** | 1 task = 1 lần chạy chuỗi F2-3 của chính học viên (cùng prompt version, cùng input). F6_cost_guardrail v1.1 nạp file .py qua biến F2_CHAIN. |
 | F6-2 | `prompts/PROMPT_LIBRARY.md` | **Bắt buộc** | Ghi đúng prompt ID + version dùng để đo trên 2 model. |
 | F6-2 | `F2-3/AI_Output_Evaluation.md` | Khuyến nghị | Cách chấm schema/coverage/hallucination của F2-3 dùng lại cho điểm chất lượng. |
-| F6-2 | `F2-3/f2_results.json` | Khuyến nghị | Số condition / req_id phủ / hallucination của F2-3 làm mốc so chất lượng 2 model. |
 | A2-3 | `prompts/PROMPT_LIBRARY.md` | Khuyến nghị | Tái dùng khung prompt sinh condition JSON (PR-F2-02) làm gốc cho prompt theo từng kỹ thuật. |
 | A6-3 | `prompts/PROMPT_LIBRARY.md` | **Bắt buộc** | Prompt library v1 → nâng lên v2. |
 
-Dùng lại ngoài lab: G1 (đánh giá lại rubric); WS #1 (prompt library v1).
+Dùng lại ngoài lab: G1 (đánh giá lại rubric); WS #1 (prompt library v1); A1–A5 (prompt library), A6-3 (v2).
 
 > ⚠️ Lab sau dùng **bản đã fix comment** – sửa xong theo nhận xét review rồi mới chuyển sang lab tiếp theo.
 
