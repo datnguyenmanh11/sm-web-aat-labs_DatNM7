@@ -1,0 +1,19 @@
+```json
+{
+  "missing": [
+    {
+      "req_id": "REQ-SF-10",
+      "description": "Thiếu kiểm tra điều kiện biên/lỗi khi cố gắng chuyển sang bước tiếp theo khi bước trước chưa hợp lệ (ví dụ: chưa đăng nhập mà bấm sang địa chỉ thanh toán)."
+    },
+    {
+      "req_id": "REQ-SF-22",
+      "description": "Thiếu kiểm tra giá trị biên cho độ dài mã CVV (giá trị biên 2, 3, 4, 5 chữ số)."
+    },
+    {
+      "req_id": "REQ-SF-22",
+      "description": "Thiếu kiểm tra giá trị biên cho tháng/năm hết hạn thẻ tín dụng (MM/YYYY) ngay tại tháng hiện tại so với tháng trong quá khứ."
+    }
+  ],
+  "unsupported": []
+}
+```

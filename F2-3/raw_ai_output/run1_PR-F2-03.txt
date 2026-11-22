@@ -1,0 +1,15 @@
+```json
+{
+  "missing": [
+    {
+      "req_id": "REQ-SF-10",
+      "description": "Thiếu kiểm tra điều kiện chuyển bước trong quy trình Checkout (không thể sang bước sau khi bước trước chưa hợp lệ)."
+    },
+    {
+      "req_id": "REQ-SF-22",
+      "description": "Thiếu giá trị biên cụ thể cho ngày hết hạn thẻ tín dụng (tháng hiện tại, tháng trước tháng hiện tại, năm hiện tại, năm trong quá khứ)."
+    }
+  ],
+  "unsupported": []
+}
+```
