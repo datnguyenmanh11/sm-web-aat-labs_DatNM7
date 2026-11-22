@@ -1,0 +1,42 @@
+[
+  {
+    "id": "C-01",
+    "req_id": "REQ-SF-22",
+    "condition": "CVV 3 chữ số (trên biên) → không thanh toán, hiển thị lỗi",
+    "technique": "BVA",
+    "priority": "Cao",
+    "source_quote": "Trường sai định dạng → không thanh toán, hiển thị lỗi."
+  },
+  {
+    "id": "C-02",
+    "req_id": "REQ-SF-22",
+    "condition": "Nhập tên chủ thẻ hợp lệ nhưng chữ thường → được chấp nhận",
+    "technique": "EP",
+    "priority": "Trung bình",
+    "source_quote": "Thẻ tín dụng: số thẻ định dạng 0000-0000-0000-0000; ngày hết hạn MM/YYYY không ở quá khứ; CVV 3–4 chữ số; tên chủ thẻ."
+  },
+  {
+    "id": "C-03",
+    "req_id": "REQ-SF-22",
+    "condition": "Nhập định dạng thẻ thiếu kí tự",
+    "technique": "EP",
+    "priority": "Trung bình",
+    "source_quote": "Thẻ tín dụng: số thẻ định dạng 0000-0000-0000-0000; ngày hết hạn MM/YYYY không ở quá khứ; CVV 3–4 chữ số; tên chủ thẻ."
+  },
+  {
+    "id": "C-04",
+    "req_id": "REQ-SF-22",
+    "condition": "Nhập định ngày hết hạn sai, reject",
+    "technique": "EP",
+    "priority": "Cao",
+    "source_quote": "Thẻ tín dụng: số thẻ định dạng 0000-0000-0000-0000; ngày hết hạn MM/YYYY không ở quá khứ; CVV 3–4 chữ số; tên chủ thẻ."
+  },
+  {
+    "id": "C-05",
+    "req_id": "REQ-SF-22",
+    "condition": "CHọn sai loại thẻ, reject",
+    "technique": "EP",
+    "priority": "Cao",
+    "source_quote": "Thẻ tín dụng: số thẻ định dạng 0000-0000-0000-0000; ngày hết hạn MM/YYYY không ở quá khứ; CVV 3–4 chữ số; tên chủ thẻ."
+  }
+]

@@ -1,0 +1,226 @@
+[
+  {
+    "id": "C-01",
+    "req_id": "REQ-SF-01",
+    "condition": "Sản phẩm còn hàng, chọn số lượng N hợp lệ và bấm Thêm vào giỏ → giỏ có thêm N đơn vị, biểu tượng giỏ hiển thị số lượng mới",
+    "technique": "EP",
+    "priority": "Cao",
+    "source_quote": "Given trang chi tiết sản phẩm còn hàng, When chọn số lượng N và bấm \"Thêm vào giỏ\", Then giỏ có thêm N đơn vị và biểu tượng giỏ hiển thị số lượng mới."
+  },
+  {
+    "id": "C-02",
+    "req_id": "REQ-SF-02",
+    "condition": "Sản phẩm hết hàng: nút Thêm vào giỏ bị vô hiệu hoặc hệ thống báo lỗi, giỏ không thay đổi",
+    "technique": "EP",
+    "priority": "Cao",
+    "source_quote": "Nút thêm vào giỏ bị vô hiệu hoặc hệ thống báo lỗi, giỏ không thay đổi."
+  },
+  {
+    "id": "C-03",
+    "req_id": "REQ-SF-03",
+    "condition": "Nhập số lượng 0 (dưới biên dưới) → không chấp nhận, hiển thị thông báo",
+    "technique": "BVA",
+    "priority": "Cao",
+    "source_quote": "Nhập số lượng < 1 hoặc > 10 → không chấp nhận, hiển thị thông báo."
+  },
+  {
+    "id": "C-04",
+    "req_id": "REQ-SF-03",
+    "condition": "Nhập số lượng 1 (biên dưới hợp lệ) → được chấp nhận",
+    "technique": "BVA",
+    "priority": "Cao",
+    "source_quote": "Số lượng mỗi sản phẩm trong giỏ từ 1 đến 10."
+  },
+  {
+    "id": "C-05",
+    "req_id": "REQ-SF-03",
+    "condition": "Nhập số lượng 5 (phân vùng hợp lệ 2–9) → được chấp nhận",
+    "technique": "EP",
+    "priority": "Trung bình",
+    "source_quote": "Số lượng mỗi sản phẩm trong giỏ từ 1 đến 10."
+  },
+  {
+    "id": "C-06",
+    "req_id": "REQ-SF-03",
+    "condition": "Nhập số lượng 10 (biên trên hợp lệ) → được chấp nhận",
+    "technique": "BVA",
+    "priority": "Cao",
+    "source_quote": "Số lượng mỗi sản phẩm trong giỏ từ 1 đến 10."
+  },
+  {
+    "id": "C-07",
+    "req_id": "REQ-SF-03",
+    "condition": "Nhập số lượng 11 (trên biên trên) → không chấp nhận, hiển thị thông báo",
+    "technique": "BVA",
+    "priority": "Cao",
+    "source_quote": "Nhập số lượng < 1 hoặc > 10 → không chấp nhận, hiển thị thông báo."
+  },
+  {
+    "id": "C-08",
+    "req_id": "REQ-SF-04",
+    "condition": "Thay đổi số lượng một dòng sản phẩm → thành tiền dòng và tổng giỏ được tính lại đúng ngay",
+    "technique": "EP",
+    "priority": "Cao",
+    "source_quote": "Thành tiền dòng và tổng giỏ được tính lại đúng."
+  },
+  {
+    "id": "C-09",
+    "req_id": "REQ-SF-04",
+    "condition": "Xóa một dòng sản phẩm khỏi giỏ → tổng giỏ được tính lại đúng ngay",
+    "technique": "EP",
+    "priority": "Cao",
+    "source_quote": "Thành tiền dòng và tổng giỏ được tính lại đúng."
+  },
+  {
+    "id": "C-10",
+    "req_id": "REQ-SF-07",
+    "condition": "Khách đã đăng nhập có sản phẩm trong giỏ, đăng xuất rồi đăng nhập lại → giỏ còn nguyên",
+    "technique": "State transition",
+    "priority": "Cao",
+    "source_quote": "Giỏ của khách đã đăng nhập được giữ lại khi đăng xuất và đăng nhập lại."
+  },
+  {
+    "id": "C-11",
+    "req_id": "REQ-SF-10",
+    "condition": "Đi lần lượt 4 bước checkout Giỏ hàng → Đăng nhập → Địa chỉ thanh toán → Phương thức thanh toán với dữ liệu hợp lệ → sang được từng bước theo đúng thứ tự",
+    "technique": "State transition",
+    "priority": "Cao",
+    "source_quote": "Checkout gồm 4 bước: Giỏ hàng → Đăng nhập → Địa chỉ thanh toán → Phương thức thanh toán."
+  },
+  {
+    "id": "C-12",
+    "req_id": "REQ-SF-10",
+    "condition": "Bước trước chưa hợp lệ (ví dụ chưa đăng nhập ở bước 2) → không thể sang bước sau",
+    "technique": "State transition",
+    "priority": "Cao",
+    "source_quote": "Không thể sang bước sau khi bước trước chưa hợp lệ."
+  },
+  {
+    "id": "C-13",
+    "req_id": "REQ-SF-11",
+    "condition": "Khách chưa đăng nhập vào checkout → ở bước 2 hiển thị form đăng nhập/đăng ký, phải đăng nhập hoặc đăng ký trước khi nhập địa chỉ",
+    "technique": "State transition",
+    "priority": "Cao",
+    "source_quote": "Ở bước 2 hiển thị form đăng nhập/đăng ký."
+  },
+  {
+    "id": "C-14",
+    "req_id": "REQ-SF-12",
+    "condition": "Nhập đủ 5 trường bắt buộc của địa chỉ thanh toán (địa chỉ, thành phố, tỉnh/bang, quốc gia, mã bưu chính) → sang được bước 4",
+    "technique": "EP",
+    "priority": "Cao",
+    "source_quote": "Địa chỉ thanh toán bắt buộc: địa chỉ, thành phố, tỉnh/bang, quốc gia, mã bưu chính."
+  },
+  {
+    "id": "C-15",
+    "req_id": "REQ-SF-12",
+    "condition": "Bỏ trống lần lượt từng trường bắt buộc của địa chỉ thanh toán → không sang bước 4, hiển thị lỗi tại đúng trường",
+    "technique": "EP",
+    "priority": "Cao",
+    "source_quote": "Thiếu một trường → không sang bước 4, hiển thị lỗi tại trường."
+  },
+  {
+    "id": "C-16",
+    "req_id": "REQ-SF-14",
+    "condition": "Thanh toán thành công → hiển thị thông báo xác nhận và mã hóa đơn duy nhất",
+    "technique": "EP",
+    "priority": "Cao",
+    "source_quote": "Khách thấy thông báo và mã hóa đơn; hóa đơn xuất hiện trong mục Hóa đơn."
+  },
+  {
+    "id": "C-17",
+    "req_id": "REQ-SF-14",
+    "condition": "Sau khi thanh toán thành công, hóa đơn vừa tạo xuất hiện trong mục Hóa đơn",
+    "technique": "EP",
+    "priority": "Trung bình",
+    "source_quote": "Khách thấy thông báo và mã hóa đơn; hóa đơn xuất hiện trong mục Hóa đơn."
+  },
+  {
+    "id": "C-18",
+    "req_id": "REQ-SF-22",
+    "condition": "Số thẻ đúng định dạng 0000-0000-0000-0000 → được chấp nhận",
+    "technique": "EP",
+    "priority": "Cao",
+    "source_quote": "Thẻ tín dụng: số thẻ định dạng 0000-0000-0000-0000; ngày hết hạn MM/YYYY không ở quá khứ; CVV 3–4 chữ số; tên chủ thẻ."
+  },
+  {
+    "id": "C-19",
+    "req_id": "REQ-SF-22",
+    "condition": "Số thẻ sai định dạng (thiếu dấu gạch, thiếu/thừa chữ số, có chữ cái) → không thanh toán, hiển thị lỗi",
+    "technique": "EP",
+    "priority": "Cao",
+    "source_quote": "Trường sai định dạng → không thanh toán, hiển thị lỗi."
+  },
+  {
+    "id": "C-20",
+    "req_id": "REQ-SF-22",
+    "condition": "Ngày hết hạn là tháng hiện tại (MM/YYYY) → được chấp nhận",
+    "technique": "BVA",
+    "priority": "Cao",
+    "source_quote": "Thẻ tín dụng: số thẻ định dạng 0000-0000-0000-0000; ngày hết hạn MM/YYYY không ở quá khứ; CVV 3–4 chữ số; tên chủ thẻ."
+  },
+  {
+    "id": "C-21",
+    "req_id": "REQ-SF-22",
+    "condition": "Ngày hết hạn là tháng liền trước tháng hiện tại (quá khứ) → không thanh toán, hiển thị lỗi",
+    "technique": "BVA",
+    "priority": "Cao",
+    "source_quote": "Trường sai định dạng → không thanh toán, hiển thị lỗi."
+  },
+  {
+    "id": "C-22",
+    "req_id": "REQ-SF-22",
+    "condition": "Ngày hết hạn sai định dạng MM/YYYY (ví dụ 13/2027 hoặc MM/YY) → không thanh toán, hiển thị lỗi",
+    "technique": "EP",
+    "priority": "Trung bình",
+    "source_quote": "Trường sai định dạng → không thanh toán, hiển thị lỗi."
+  },
+  {
+    "id": "C-23",
+    "req_id": "REQ-SF-22",
+    "condition": "CVV 2 chữ số (dưới biên) → không thanh toán, hiển thị lỗi",
+    "technique": "BVA",
+    "priority": "Cao",
+    "source_quote": "Trường sai định dạng → không thanh toán, hiển thị lỗi."
+  },
+  {
+    "id": "C-24",
+    "req_id": "REQ-SF-22",
+    "condition": "CVV 3 chữ số (biên dưới hợp lệ) → được chấp nhận",
+    "technique": "BVA",
+    "priority": "Cao",
+    "source_quote": "Thẻ tín dụng: số thẻ định dạng 0000-0000-0000-0000; ngày hết hạn MM/YYYY không ở quá khứ; CVV 3–4 chữ số; tên chủ thẻ."
+  },
+  {
+    "id": "C-25",
+    "req_id": "REQ-SF-22",
+    "condition": "CVV 4 chữ số (biên trên hợp lệ) → được chấp nhận",
+    "technique": "BVA",
+    "priority": "Cao",
+    "source_quote": "Thẻ tín dụng: số thẻ định dạng 0000-0000-0000-0000; ngày hết hạn MM/YYYY không ở quá khứ; CVV 3–4 chữ số; tên chủ thẻ."
+  },
+  {
+    "id": "C-26",
+    "req_id": "REQ-SF-22",
+    "condition": "CVV 5 chữ số (trên biên) → không thanh toán, hiển thị lỗi",
+    "technique": "BVA",
+    "priority": "Cao",
+    "source_quote": "Trường sai định dạng → không thanh toán, hiển thị lỗi."
+  },
+  {
+    "id": "C-27",
+    "req_id": "REQ-SF-22",
+    "condition": "Nhập tên chủ thẻ hợp lệ → được chấp nhận",
+    "technique": "EP",
+    "priority": "Trung bình",
+    "source_quote": "Thẻ tín dụng: số thẻ định dạng 0000-0000-0000-0000; ngày hết hạn MM/YYYY không ở quá khứ; CVV 3–4 chữ số; tên chủ thẻ."
+  },
+  {
+    "id": "C-28",
+    "req_id": "REQ-SF-22",
+    "condition": "Để trống tên chủ thẻ → không thanh toán, hiển thị lỗi",
+    "technique": "Error guessing",
+    "priority": "Trung bình",
+    "source_quote": "Trường sai định dạng → không thanh toán, hiển thị lỗi."
+  }
+]
