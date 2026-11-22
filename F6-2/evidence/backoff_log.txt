@@ -1,0 +1,14 @@
+=== Ca 1: lỗi 429 (retryable) | 2026-11-22T21:51:24+07:00 | SIMULATED – không gọi API thật ===
+  [+ 0.00s] lần gọi 1 -> Error code: 429 - RESOURCE_EXHAUSTED (giả lập)
+  [+ 0.00s] backoff: chờ 1.51s
+  [+ 1.51s] lần gọi 2 -> Error code: 429 - RESOURCE_EXHAUSTED (giả lập)
+  [+ 1.51s] backoff: chờ 2.69s
+  [+ 4.20s] lần gọi 3 -> Error code: 429 - RESOURCE_EXHAUSTED (giả lập)
+  [+ 4.20s] backoff: chờ 4.06s
+  [+ 8.26s] lần gọi 4 -> Error code: 429 - RESOURCE_EXHAUSTED (giả lập)
+  [+ 8.26s] backoff: chờ 8.34s
+  [+16.61s] lần gọi 5 -> Error code: 429 - RESOURCE_EXHAUSTED (giả lập)
+  -> dừng sau 5 lần gọi, ném lỗi ra ngoài: Error code: 429 - RESOURCE_EXHAUSTED (giả lập)
+=== Ca 2: lỗi 400 (không retry) | 2026-11-22T21:51:40+07:00 | SIMULATED – không gọi API thật ===
+  [+ 0.00s] lần gọi 1 -> Error code: 400 - INVALID_ARGUMENT (giả lập)
+  -> dừng sau 1 lần gọi, ném lỗi ra ngoài: Error code: 400 - INVALID_ARGUMENT (giả lập)

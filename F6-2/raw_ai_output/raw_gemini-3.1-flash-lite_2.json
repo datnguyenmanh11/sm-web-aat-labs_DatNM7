@@ -1,0 +1,86 @@
+Dưới đây là danh sách các Test Condition được định dạng JSON dựa trên các yêu cầu (SRS) bạn đã cung cấp:
+
+```json
+[
+  {
+    "id": "TC-01",
+    "req_id": "REQ-SF-01",
+    "condition": "Thêm sản phẩm vào giỏ với số lượng hợp lệ (1 <= N <= 10)",
+    "technique": "Equivalence Partitioning",
+    "priority": "High",
+    "source_quote": "Given trang chi tiết sản phẩm còn hàng, When chọn số lượng N và bấm 'Thêm vào giỏ', Then giỏ có thêm N đơn vị"
+  },
+  {
+    "id": "TC-02",
+    "req_id": "REQ-SF-02",
+    "condition": "Thêm sản phẩm đã hết hàng vào giỏ",
+    "technique": "Boundary Value Analysis",
+    "priority": "High",
+    "source_quote": "Nút thêm vào giỏ bị vô hiệu hoặc hệ thống báo lỗi, giỏ không thay đổi."
+  },
+  {
+    "id": "TC-03",
+    "req_id": "REQ-SF-03",
+    "condition": "Nhập số lượng sản phẩm ngoài phạm vi (0 hoặc >10)",
+    "technique": "Boundary Value Analysis",
+    "priority": "Medium",
+    "source_quote": "Nhập số lượng < 1 hoặc > 10 → không chấp nhận, hiển thị thông báo."
+  },
+  {
+    "id": "TC-04",
+    "req_id": "REQ-SF-04",
+    "condition": "Cập nhật số lượng và xóa sản phẩm trong giỏ",
+    "technique": "Decision Table",
+    "priority": "High",
+    "source_quote": "Thành tiền dòng và tổng giỏ được tính lại đúng."
+  },
+  {
+    "id": "TC-05",
+    "req_id": "REQ-SF-07",
+    "condition": "Kiểm tra tính bền vững của giỏ hàng sau khi đăng xuất và đăng nhập lại",
+    "technique": "State Transition",
+    "priority": "Medium",
+    "source_quote": "Đăng xuất rồi đăng nhập lại, giỏ còn nguyên."
+  },
+  {
+    "id": "TC-06",
+    "req_id": "REQ-SF-10",
+    "condition": "Kiểm tra luồng tuần tự của 4 bước Checkout",
+    "technique": "State Transition",
+    "priority": "High",
+    "source_quote": "Không thể sang bước sau khi bước trước chưa hợp lệ."
+  },
+  {
+    "id": "TC-07",
+    "req_id": "REQ-SF-11",
+    "condition": "Xác thực yêu cầu đăng nhập/đăng ký tại bước 2 của Checkout",
+    "technique": "State Transition",
+    "priority": "High",
+    "source_quote": "Ở bước 2 hiển thị form đăng nhập/đăng ký."
+  },
+  {
+    "id": "TC-08",
+    "req_id": "REQ-SF-12",
+    "condition": "Kiểm tra các trường bắt buộc tại địa chỉ thanh toán",
+    "technique": "Equivalence Partitioning",
+    "priority": "High",
+    "source_quote": "Thiếu một trường → không sang bước 4, hiển thị lỗi tại trường."
+  },
+  {
+    "id": "TC-09",
+    "req_id": "REQ-SF-14",
+    "condition": "Xác nhận tạo hóa đơn sau khi thanh toán thành công",
+    "technique": "Use Case Testing",
+    "priority": "High",
+    "source_quote": "Khách thấy thông báo và mã hóa đơn; hóa đơn xuất hiện trong mục Hóa đơn."
+  },
+  {
+    "id": "TC-10",
+    "req_id": "REQ-SF-22",
+    "condition": "Kiểm tra định dạng thẻ tín dụng (Số thẻ, Ngày hết hạn, CVV)",
+    "technique": "Boundary Value Analysis",
+    "priority": "High",
+    "source_quote": "Trường sai định dạng → không thanh toán, hiển thị lỗi."
+  }
+]
+```

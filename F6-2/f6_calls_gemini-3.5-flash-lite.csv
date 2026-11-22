@@ -1,0 +1,4 @@
+time,provider,model,tokens_in,tokens_out,cost_usd_equiv
+2026-11-22T14:49:07,gemini,gemini-3.5-flash-lite,691,1496,0.003947
+2026-11-22T14:49:13,gemini,gemini-3.5-flash-lite,691,1496,0.003947
+2026-11-22T14:49:17,gemini,gemini-3.5-flash-lite,691,1496,0.003947

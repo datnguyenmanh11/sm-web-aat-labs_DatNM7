@@ -1,0 +1,111 @@
+Dưới đây là danh sách các điều kiện kiểm thử (Test Condition) được sinh ra dựa trên các yêu cầu (SRS) được cung cấp, dưới định dạng JSON. 
+
+Các kỹ thuật thiết kế kiểm thử (Test Design Techniques) được áp dụng bao gồm: **Equivalence Partitioning (EP)** - Phân vùng tương đương, **Boundary Value Analysis (BVA)** - Phân tích giá trị biên, và **State Transition / Error Guessing** - Chuyển đổi trạng thái / Đoán lỗi.
+
+```json
+[
+  {
+    "id": "TC-SF-01-01",
+    "req_id": "REQ-SF-01",
+    "condition": "Thêm sản phẩm còn hàng vào giỏ với số lượng N hợp lệ (N >= 1)",
+    "technique": "Equivalence Partitioning",
+    "priority": "High",
+    "source_quote": "Given trang chi tiết sản phẩm còn hàng, When chọn số lượng N và bấm 'Thêm vào giỏ', Then giỏ có thêm N đơn vị và biểu tượng giỏ hiển thị số lượng mới."
+  },
+  {
+    "id": "TC-SF-02-01",
+    "req_id": "REQ-SF-02",
+    "condition": "Cố gắng thêm sản phẩm hết hàng vào giỏ hàng",
+    "technique": "Error Guessing",
+    "priority": "High",
+    "source_quote": "Nút thêm vào giỏ bị vô hiệu hoặc hệ thống báo lỗi, giỏ không thay đổi."
+  },
+  {
+    "id": "TC-SF-03-01",
+    "req_id": "REQ-SF-03",
+    "condition": "Nhập số lượng sản phẩm ở biên dưới (Số lượng = 0)",
+    "technique": "Boundary Value Analysis",
+    "priority": "High",
+    "source_quote": "Nhập số lượng < 1 hoặc > 10 → không chấp nhận, hiển thị thông báo."
+  },
+  {
+    "id": "TC-SF-03-02",
+    "req_id": "REQ-SF-03",
+    "condition": "Nhập số lượng sản phẩm hợp lệ ở biên dưới (Số lượng = 1)",
+    "technique": "Boundary Value Analysis",
+    "priority": "Medium",
+    "source_quote": "Số lượng mỗi sản phẩm trong giỏ từ 1 đến 10."
+  },
+  {
+    "id": "TC-SF-03-03",
+    "req_id": "REQ-SF-03",
+    "condition": "Nhập số lượng sản phẩm hợp lệ ở biên trên (Số lượng = 10)",
+    "technique": "Boundary Value Analysis",
+    "priority": "Medium",
+    "source_quote": "Số lượng mỗi sản phẩm trong giỏ từ 1 đến 10."
+  },
+  {
+    "id": "TC-SF-03-04",
+    "req_id": "REQ-SF-03",
+    "condition": "Nhập số lượng sản phẩm ở biên trên (Số lượng = 11)",
+    "technique": "Boundary Value Analysis",
+    "priority": "High",
+    "source_quote": "Nhập số lượng < 1 hoặc > 10 → không chấp nhận, hiển thị thông báo."
+  },
+  {
+    "id": "TC-SF-04-01",
+    "req_id": "REQ-SF-04",
+    "condition": "Thay đổi số lượng sản phẩm trong giỏ và kiểm tra tổng tiền",
+    "technique": "Equivalence Partitioning",
+    "priority": "High",
+    "source_quote": "Thành tiền dòng và tổng giỏ được tính lại đúng."
+  },
+  {
+    "id": "TC-SF-04-02",
+    "req_id": "REQ-SF-04",
+    "condition": "Xóa một dòng sản phẩm khỏi giỏ và kiểm tra tổng tiền",
+    "technique": "Equivalence Partitioning",
+    "priority": "High",
+    "source_quote": "Khách thay đổi số lượng hoặc xóa dòng sản phẩm; tổng tiền cập nhật ngay."
+  },
+  {
+    "id": "TC-SF-07-01",
+    "req_id": "REQ-SF-07",
+    "condition": "Giỏ hàng của tài khoản đã đăng nhập được giữ nguyên sau khi đăng xuất và đăng nhập lại",
+    "technique": "State Transition",
+    "priority": "Medium",
+    "source_quote": "Đăng xuất rồi đăng nhập lại, giỏ còn nguyên."
+  },
+  {
+    "id": "TC-SF-10-01",
+    "req_id": "REQ-SF-10",
+    "condition": "Cố gắng chuyển sang bước tiếp theo khi bước hiện tại chưa hoàn thành/hợp lệ",
+    "technique": "State Transition",
+    "priority": "High",
+    "source_quote": "Không thể sang bước sau khi bước trước chưa hợp lệ."
+  },
+  {
+    "id": "TC-SF-11-01",
+    "req_id": "REQ-SF-11",
+    "condition": "Khách hàng chưa đăng nhập tiến hành checkout đến bước địa chỉ",
+    "technique": "State Transition",
+    "priority": "High",
+    "source_quote": "Ở bước 2 hiển thị form đăng nhập/đăng ký."
+  },
+  {
+    "id": "TC-SF-12-01",
+    "req_id": "REQ-SF-12",
+    "condition": "Nhập đầy đủ tất cả các trường bắt buộc của địa chỉ thanh toán",
+    "technique": "Equivalence Partitioning",
+    "priority": "High",
+    "source_quote": "Địa chỉ thanh toán bắt buộc: địa chỉ, thành phố, tỉnh/bang, quốc gia, mã bưu chính."
+  },
+  {
+    "id": "TC-SF-12-02",
+    "req_id": "REQ-SF-12",
+    "condition": "Bỏ trống một trong các trường bắt buộc của địa chỉ thanh toán",
+    "technique": "Error Guessing",
+    "priority": "High",
+    "source_quote": "Thiếu một trường → không sang bước 4, hiển thị lỗi tại trường."
+  },
+  

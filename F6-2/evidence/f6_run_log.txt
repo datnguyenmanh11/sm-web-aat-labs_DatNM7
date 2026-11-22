@@ -1,0 +1,5 @@
+=== F6_cost_guardrail.py | 2026-11-22T21:48:51+07:00 | A=gemini-3.5-flash-lite B=gemini-3.1-flash-lite | guardrail model=gemini-3.5-flash-lite ===
+gemini-3.5-flash-lite cost per task (USD quy đổi): 0.003947
+gemini-3.1-flash-lite cost per task (USD quy đổi): 0.001698
+[CẢNH BÁO] đã dùng 425/500 token
+Guardrail dừng đúng: Vượt ngân sách: 1042 > 500 token
