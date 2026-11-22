@@ -58,8 +58,8 @@ Kiểm tra trước khi nộp: `python scripts/check_lab_chain.py F2-3 --mode su
 ## ➡️ Đầu ra được dùng ở lab sau
 | Lab sau | File của lab này | Mức | Dùng để làm gì |
 |---|---|---|---|
-| F6-2 | `F2-3/notebook/F2_prompt_chain.py` | **Bắt buộc** | 1 task = 1 lần chạy trọn chuỗi P1→P2→P3 của chính học viên (prompt version đã chốt, cùng fixture) – không dùng prompt gộp riêng của F6_cost_guardrail.py v1.0. |
-| F6-2 | `prompts/PROMPT_LIBRARY.md` | **Bắt buộc** | Ghi đúng prompt ID + version dùng để đo trên 2 model. |
+| F6-2 | `F2-3/notebook/F2_prompt_chain.py` | Khuyến nghị | LevelUp mô tả task = chuỗi F2-3 của học viên; starter F6_cost_guardrail.py v1.0 (đang dùng) đo bằng prompt gộp TASK trên cùng fixture – ghi rõ trong prompt_record.md. |
+| F6-2 | `prompts/PROMPT_LIBRARY.md` | **Bắt buộc** | Ghi prompt/version dùng để đo trên 2 model. |
 | F6-2 | `F2-3/AI_Output_Evaluation.md` | Khuyến nghị | Cách đo schema/REQ phủ/hallucination/tái lập của F2-3 dùng lại cho điểm chất lượng. |
 | A2-3 | `prompts/PROMPT_LIBRARY.md` | Khuyến nghị | Tái dùng khung prompt sinh condition JSON (PR-F2-02) làm gốc cho prompt theo từng kỹ thuật. |
 | A6-3 | `prompts/PROMPT_LIBRARY.md` | **Bắt buộc** | Prompt library v1 → nâng lên v2. |

@@ -40,8 +40,8 @@ flowchart LR
 |---|---|---|---|---|
 | F2-3 | F1-3 | `F1-3/conclusion.md` | Khuyến nghị | Bài học F1-3 (biến thiên, hallucination khi thiếu ngữ cảnh) → luôn đưa đoạn SRS vào prompt, cố định config để tái lập. |
 | F2-3 | F2-1 | `prompts/PROMPT_LIBRARY.md` | Khuyến nghị | 2 prompt có version + change log từ bài F2-1 (PR-F2-001 v1.0 → v1.1) là điểm xuất phát. |
-| F6-2 | F2-3 | `F2-3/notebook/F2_prompt_chain.py` | Bắt buộc | 1 task = 1 lần chạy trọn chuỗi P1→P2→P3 của chính học viên (prompt version đã chốt, cùng fixture) – không dùng prompt gộp riêng của F6_cost_guardrail.py v1.0. |
-| F6-2 | F2-3 | `prompts/PROMPT_LIBRARY.md` | Bắt buộc | Ghi đúng prompt ID + version dùng để đo trên 2 model. |
+| F6-2 | F2-3 | `F2-3/notebook/F2_prompt_chain.py` | Khuyến nghị | LevelUp mô tả task = chuỗi F2-3 của học viên; starter F6_cost_guardrail.py v1.0 (đang dùng) đo bằng prompt gộp TASK trên cùng fixture – ghi rõ trong prompt_record.md. |
+| F6-2 | F2-3 | `prompts/PROMPT_LIBRARY.md` | Bắt buộc | Ghi prompt/version dùng để đo trên 2 model. |
 | F6-2 | F2-3 | `F2-3/AI_Output_Evaluation.md` | Khuyến nghị | Cách đo schema/REQ phủ/hallucination/tái lập của F2-3 dùng lại cho điểm chất lượng. |
 | A1-4 | F6-2 | `F6-2/F6_Model_Quality_Cost.csv` | Khuyến nghị | Gợi ý (không bắt buộc theo lab guide): dùng model đã chọn ở F6-2 và giữ guardrail cho các lab A. |
 | A1-4 | A1-1 | `evidence/EVIDENCE_INDEX.md` | Khuyến nghị | Checklist truy cập UAT/API/Swagger (A1-1) đã hoàn thành; repo cá nhân đã tạo. |

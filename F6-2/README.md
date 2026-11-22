@@ -13,8 +13,8 @@
 ## ⬅️ Đầu vào từ lab trước
 | Từ | File | Mức | Dùng để làm gì |
 |---|---|---|---|
-| F2-3 | `F2-3/notebook/F2_prompt_chain.py` | **Bắt buộc** | 1 task = 1 lần chạy trọn chuỗi P1→P2→P3 của chính học viên (prompt version đã chốt, cùng fixture) – không dùng prompt gộp riêng của F6_cost_guardrail.py v1.0. |
-| F2-3 | `prompts/PROMPT_LIBRARY.md` | **Bắt buộc** | Ghi đúng prompt ID + version dùng để đo trên 2 model. |
+| F2-3 | `F2-3/notebook/F2_prompt_chain.py` | Khuyến nghị | LevelUp mô tả task = chuỗi F2-3 của học viên; starter F6_cost_guardrail.py v1.0 (đang dùng) đo bằng prompt gộp TASK trên cùng fixture – ghi rõ trong prompt_record.md. |
+| F2-3 | `prompts/PROMPT_LIBRARY.md` | **Bắt buộc** | Ghi prompt/version dùng để đo trên 2 model. |
 | F2-3 | `F2-3/AI_Output_Evaluation.md` | Khuyến nghị | Cách đo schema/REQ phủ/hallucination/tái lập của F2-3 dùng lại cho điểm chất lượng. |
 
 Kiểm tra trước khi bắt đầu: `python scripts/check_lab_chain.py F6-2 --mode start`
@@ -26,14 +26,14 @@ Kiểm tra trước khi bắt đầu: `python scripts/check_lab_chain.py F6-2 --
 - Fixture 10_Starter_Kit/f2_fixtures/fixture_srs_cart_checkout.md (cùng input F2-3)
 
 ## ▶️ Chạy notebook (Colab) – output ghi thẳng vào thư mục lab
-- Script: `Ô Colab F6-2 trong notebook (dùng lại /content/F2_prompt_chain.py + llm_client.py v1.0)` · `LAB_OUT=<repo>/F6-2` · biến: `LLM_MODEL_A`, `LLM_MODEL_B`, `PRICES + PRICE_DATE điền trong ô (1)`
-- Ghi ra: `F6-2/f6_calls_<model>.csv`; `F6-2/raw_ai_output/<model>_task<i>_PR-F2-0x.txt`; `F6-2/F6_Model_Quality_Cost.draft.csv (số liệu đo – học viên chấm coverage, chọn model)`; `F6-2/f6_guardrail_test.csv + evidence/guardrail_80_100_log.txt`; `F6-2/evidence/backoff_log.txt (429 giả lập – ghi rõ SIMULATED)`
+- Script: `F6_cost_guardrail.py starter v1.0 (ô %%writefile trong notebook Colab, chỉ sửa 2 dòng MODELS)` · `LAB_OUT=<repo>/F6-2` · biến: `LLM_MODEL_A`, `LLM_MODEL_B`, `LLM_MODEL (model chạy thử guardrail)`, `đơn giá trả phí trong MODELS`
+- Ghi ra: `F6-2/f6_calls_<model>.csv`; `F6-2/raw_<model>_<i>.json (chuyển vào raw_ai_output/ khi commit)`; `F6-2/f6_guardrail_test.csv`; `F6-2/evidence/f6_run_log.txt ([CẢNH BÁO] + Guardrail dừng đúng)`; `F6-2/evidence/backoff_log.txt (ô (4), 429 giả lập – SIMULATED)`
 - Cách đặt Secrets, clone repo, commit: [colab/COLAB_SETUP.md](../colab/COLAB_SETUP.md)
 
 ## Các bước (tóm tắt)
 1. Chọn 2 model khác mức (vd bản Flash-Lite đã dùng + một bản lớn hơn); đặt LLM_MODEL_A, LLM_MODEL_B trong Colab Secrets – không in key.
 2. Tra bảng giá trả phí (ai.google.dev/gemini-api/docs/pricing): đơn giá input và output riêng cho từng model + URL + ngày tra; thay đơn giá ví dụ.
-3. Đo: mỗi model 3 task, mỗi task = trọn chuỗi F2-3 (cùng prompt version, cùng fixture); token lấy từ usage (log f6_calls_<model>.csv); cost per task = Σ (tin×giá vào + tout×giá ra)/10⁶ của 3 lời gọi.
+3. Đo bằng F6_cost_guardrail.py (starter v1.0): mỗi model 3 task (prompt gộp TASK trên fixture, max_tokens 1500); token từ usage (f6_calls_<model>.csv); cost per task = trung bình cost_usd_equiv. Raw raw_<model>_<i>.json → raw_ai_output/.
 4. Chấm chất lượng mỗi lần chạy: schema (% hợp lệ × 25), coverage (theo benchmark/mentor), hallucination (25 − 5×số condition bịa), tái lập (chênh req_id ≤1 = 10; 2 = 5; >2 = 0).
 5. Chọn model: loại < 75 → rẻ nhất trong nhóm đạt → model chất lượng cao hơn đắt hơn < 20% thì chọn; ghi reason có số liệu.
 6. Guardrail ngân sách: Budget(max_tokens=500), gọi lặp → log [CẢNH BÁO] (80%) + 'Guardrail dừng đúng' (100%) → evidence/guardrail_80_100.
