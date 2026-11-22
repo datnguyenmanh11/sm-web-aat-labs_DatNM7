@@ -11,7 +11,7 @@
 |---|---|---|---|---|---|---|
 | F1-3 | F1_Experiment_Log (8 lần chạy, batch 21:33, có token) + raw output + log gọi API; bổ sung: output batch 21:32. + kết luận + phiếu F1-1 (đủ 4 mục bắt buộc) | `F1-3/F1_Experiment_Log.csv`, `F1-3/conclusion.md`, `F1-3/F1-1_notes.md`, `F1-3/raw_ai_output/`, `F1-3/evidence/batch_2132_notebook_output.txt`, `F3_AI_Usage_Escalation_Log.csv` (F3-001) | [f461826](https://github.com/datnguyenmanh11/DatNM7_sm-web-aat-labs/commit/f4618263d2b760fab1a6cc58552ecb6fd538b90f) | Chưa nộp form | | |
 | F2-3 | Chuỗi prompt PR-F2-01/02/03 v1.0: run1, run2, 3 ca injection + log gọi API + AI_Output_Evaluation (số liệu điền sẵn, phần nhận xét học viên chưa điền) | `F2-3/AI_Output_Evaluation.md`, `F2-3/f2_llm_calls.csv`, `F2-3/raw_ai_output/`, `F2-3/notebook/`, `F3_AI_Usage_Escalation_Log.csv` (F3-002) | Chưa nộp | | | |
-| F6-2 | Bảng cost/chất lượng 2 model × 3 lần (coverage, total và selected chờ benchmark) + prompt record + log gọi API + guardrail 80/100% + backoff 429/400 – xem E-F6-01..03 | `F6-2/F6_Model_Quality_Cost.csv`, `F6-2/prompt_record.md`, `F6-2/f6_calls_*.csv`, `F6-2/raw_ai_output/`, `F6-2/evidence/`, `F3_AI_Usage_Escalation_Log.csv` (F3-003) | Chưa nộp (chờ coverage) | | | |
+| F6-2 | Bảng cost/chất lượng 2 model × 3 lần (coverage, total và selected chờ benchmark) + prompt record + log gọi API + guardrail 80/100% + backoff 429/400 – xem E-F6-01..03 | `F6-2/F6_Model_Quality_Cost.csv`, `F6-2/prompt_record.md`, `F6-2/f6_calls_*.csv`, `F6-2/raw_ai_output/`, `F6-2/evidence/`, `F3_AI_Usage_Escalation_Log.csv` (F3-003) | Commit `[submit F6-2]` (xem git log) | 2026-11-22 (coverage chờ benchmark mentor) | | | |
 | A1-4 | | | | | | |
 | A2-3 | | | | | | |
 | A3-2 | | | | | | |
