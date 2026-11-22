@@ -1,0 +1,1 @@
+﻿model,run,prompt_id_version,tokens_in,tokens_out,price_in_usd_per_1M,price_out_usd_per_1M,price_source_url,price_checked_date,cost_usd_per_task,schema_valid_pct,score_schema(25),coverage_pct,score_coverage(40),hallucination_count,score_hallucination(25),reproducibility_req_diff,score_reproducibility(10),quality_total(100),passes_quality_threshold_75(Y/N),selected(Y/N),reason

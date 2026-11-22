@@ -252,16 +252,17 @@
       ],
       "objective": "Tính cost per task từ token thật, chọn model bằng rubric chất lượng + chi phí, đặt guardrail.",
       "external_inputs": [
-        "10_Starter_Kit/common/llm_client.py, F6_cost_guardrail.py",
-        "Rubric chất lượng 05b mục F6-1",
-        "Bảng giá trả phí công khai của từng model (ghi URL + ngày tra)"
+        "10_Starter_Kit/common/llm_client.py (usage thật, Budget 80%/100%, min_interval_s, retry 429/5xx tối đa 5 lần)",
+        "Rubric chất lượng (bài F6-1 / 05b mục F6-1): schema 25 · coverage 40 · hallucination 25 · tái lập 10; ngưỡng 75",
+        "Bảng giá trả phí công khai https://ai.google.dev/gemini-api/docs/pricing (ghi URL + ngày tra; tách giá vào/ra)",
+        "Fixture 10_Starter_Kit/f2_fixtures/fixture_srs_cart_checkout.md (cùng input F2-3)"
       ],
       "upstream": [
         {
           "from": "F2-3",
-          "path": "F2-3/notebook/*",
+          "path": "F2-3/notebook/F2_prompt_chain.py",
           "required": true,
-          "why": "1 task = 1 lần chạy chuỗi F2-3 của chính học viên (cùng prompt version, cùng input). F6_cost_guardrail v1.1 nạp file .py qua biến F2_CHAIN."
+          "why": "1 task = 1 lần chạy trọn chuỗi P1→P2→P3 của chính học viên (prompt version đã chốt, cùng fixture) – không dùng prompt gộp riêng của F6_cost_guardrail.py v1.0."
         },
         {
           "from": "F2-3",
@@ -273,36 +274,71 @@
           "from": "F2-3",
           "path": "F2-3/AI_Output_Evaluation.md",
           "required": false,
-          "why": "Cách chấm schema/coverage/hallucination của F2-3 dùng lại cho điểm chất lượng."
+          "why": "Cách đo schema/REQ phủ/hallucination/tái lập của F2-3 dùng lại cho điểm chất lượng."
         }
       ],
       "outputs": [
         {
           "path": "F6-2/F6_Model_Quality_Cost.csv",
-          "desc": "2 model × 3 lần: token thật, cost, điểm chất lượng, model được chọn",
+          "desc": "Template chính thức: 2 model × 3 lần – token thật, đơn giá vào/ra + URL + ngày, cost_usd_per_task, điểm 4 tiêu chí, quality_total, ngưỡng 75, selected, reason",
           "required": true,
           "min_rows": 6
         },
         {
           "path": "F6-2/notebook/*",
-          "desc": "Notebook có guardrail ngân sách, rate limit, backoff 429",
+          "desc": "Notebook .ipynb (đã xóa mọi output có thể chứa key) hoặc file .md chứa link Colab chỉ xem",
           "required": true
         },
         {
-          "path": "F6-2/evidence/*",
-          "desc": "Ảnh/log khi guardrail kích hoạt (80% cảnh báo, 100% dừng, 429)",
+          "path": "F6-2/f6_calls_*.csv",
+          "desc": "Log usage từng lời gọi của mỗi model (f6_calls_<modelA>.csv, f6_calls_<modelB>.csv)",
           "required": true
+        },
+        {
+          "path": "F6-2/f6_guardrail_test.csv",
+          "desc": "Log lần chạy thử guardrail ngân sách nhỏ",
+          "required": true,
+          "min_rows": 1
+        },
+        {
+          "path": "F6-2/evidence/guardrail_80_100*",
+          "desc": "Ảnh/log '[CẢNH BÁO] …' và 'Guardrail dừng đúng: Vượt ngân sách…'",
+          "required": true
+        },
+        {
+          "path": "F6-2/evidence/backoff_log.txt",
+          "desc": "Log backoff khi gặp 429 (thật hoặc giả lập có ghi rõ): chờ tăng dần, dừng sau số lần giới hạn",
+          "required": true
+        },
+        {
+          "path": "F6-2/raw_ai_output/*",
+          "desc": "Output nguyên bản của 2 model",
+          "required": true
+        },
+        {
+          "path": "F6-2/prompt_record.md",
+          "desc": "Prompt version dùng cho task, 2 model + tham số",
+          "required": true
+        },
+        {
+          "path": "F3_AI_Usage_Escalation_Log.csv",
+          "desc": "Dòng F6-2",
+          "required": true,
+          "min_rows": 3
         }
       ],
       "reused_in": [
         "G1 (ước tính chi phí từ token thật)"
       ],
       "steps": [
-        "Chạy task F2-3 trên 2 model, mỗi model 3 lần; lấy token vào/ra thật từ usage.",
-        "Quy đổi chi phí theo bảng giá trả phí công khai (ghi URL + ngày tra), kể cả khi dùng free tier.",
-        "Chấm chất lượng mỗi model theo rubric F6-1 (schema, coverage so benchmark fixture, số hallucination).",
-        "Chọn model rẻ nhất đạt ngưỡng chất lượng; giải thích.",
-        "Guardrail: giới hạn lần gọi/phút, ngân sách token (cảnh báo 80%, dừng 100%), backoff khi 429; chạy thử vượt ngân sách và lưu log."
+        "Chọn 2 model khác mức (vd bản Flash-Lite đã dùng + một bản lớn hơn); đặt LLM_MODEL_A, LLM_MODEL_B trong Colab Secrets – không in key.",
+        "Tra bảng giá trả phí (ai.google.dev/gemini-api/docs/pricing): đơn giá input và output riêng cho từng model + URL + ngày tra; thay đơn giá ví dụ.",
+        "Đo: mỗi model 3 task, mỗi task = trọn chuỗi F2-3 (cùng prompt version, cùng fixture); token lấy từ usage (log f6_calls_<model>.csv); cost per task = Σ (tin×giá vào + tout×giá ra)/10⁶ của 3 lời gọi.",
+        "Chấm chất lượng mỗi lần chạy: schema (% hợp lệ × 25), coverage (theo benchmark/mentor), hallucination (25 − 5×số condition bịa), tái lập (chênh req_id ≤1 = 10; 2 = 5; >2 = 0).",
+        "Chọn model: loại < 75 → rẻ nhất trong nhóm đạt → model chất lượng cao hơn đắt hơn < 20% thì chọn; ghi reason có số liệu.",
+        "Guardrail ngân sách: Budget(max_tokens=500), gọi lặp → log [CẢNH BÁO] (80%) + 'Guardrail dừng đúng' (100%) → evidence/guardrail_80_100.",
+        "Backoff 429: chứng minh retry tối đa 5 lần, chờ tăng dần, chỉ retry 429/5xx/timeout (gọi dồn dập hoặc giả lập 429 có ghi rõ) → evidence/backoff_log.txt.",
+        "Lưu prompt_record, F3 log, evidence index (E-F6-01/02/03); xóa output có thể chứa key; commit và nộp link commit."
       ],
       "rubric": [
         [
@@ -327,18 +363,19 @@
         "Lộ API key (notebook chia sẻ, log, commit)"
       ],
       "runner": {
-        "script": "10_Starter_Kit/common/F6_cost_guardrail.py",
+        "script": "Ô Colab F6-2 trong notebook (dùng lại /content/F2_prompt_chain.py + llm_client.py v1.0)",
         "lab_out": "F6-2",
         "env": [
           "LLM_MODEL_A",
           "LLM_MODEL_B",
-          "F2_CHAIN=<repo>/F2-3/notebook/F2_prompt_chain.py",
-          "F2_FIXTURES"
+          "PRICES + PRICE_DATE điền trong ô (1)"
         ],
         "writes": [
-          "F6-2/F6_Model_Quality_Cost.csv (6 task)",
-          "F6-2/evidence/f6_guardrail_test.csv (80% / dừng 100% / rate limit / backoff)",
-          "F6-2/f6_calls_<model>.csv"
+          "F6-2/f6_calls_<model>.csv",
+          "F6-2/raw_ai_output/<model>_task<i>_PR-F2-0x.txt",
+          "F6-2/F6_Model_Quality_Cost.draft.csv (số liệu đo – học viên chấm coverage, chọn model)",
+          "F6-2/f6_guardrail_test.csv + evidence/guardrail_80_100_log.txt",
+          "F6-2/evidence/backoff_log.txt (429 giả lập – ghi rõ SIMULATED)"
         ]
       }
     },
