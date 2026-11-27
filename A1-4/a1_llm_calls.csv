@@ -1,0 +1,2 @@
+time,provider,model,tokens_in,tokens_out,cost_usd_equiv
+2026-11-27T07:28:40,gemini,gemini-3.5-flash-lite,1291,1111,0.0

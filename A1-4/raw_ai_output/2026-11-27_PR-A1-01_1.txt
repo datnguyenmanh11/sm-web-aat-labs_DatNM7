@@ -1,0 +1,56 @@
+[
+  {
+    "req_id": "REQ-SF-03",
+    "issue_type": "Mau thuan",
+    "srs_quote": "Số lượng mỗi sản phẩm trong giỏ từ 1 đến 10.",
+    "kb_quote": "",
+    "explanation": "Yêu cầu REQ-SF-03 quy định số lượng từ 1 đến 10, nhưng REQ-SF-06 lại quy định điều kiện mua sỉ là từ 20 sản phẩm cùng loại trở lên (≥ 20), dẫn đến mâu thuẫn vì giới hạn tối đa của giỏ hàng là 10 sản phẩm.",
+    "clarification_question": "Giới hạn số lượng tối đa của một sản phẩm trong giỏ hàng là 10 hay có thể lớn hơn hoặc bằng 20 để áp dụng chính sách mua sỉ ở REQ-SF-06?",
+    "severity": "Critical"
+  },
+  {
+    "req_id": "REQ-SF-05",
+    "issue_type": "Mo ho",
+    "srs_quote": "Giỏ hàng hiển thị nhanh.",
+    "kb_quote": "",
+    "explanation": "Cụm từ 'hiển thị nhanh' rất mơ hồ, không có tiêu chí chấp nhận cụ thể hoặc đo lường được (ví dụ: thời gian phản hồi dưới X giây).",
+    "clarification_question": "Thế nào là 'hiển thị nhanh'? Tiêu chuẩn thời gian phản hồi (load time) tối đa cho giỏ hàng là bao nhiêu giây?",
+    "severity": "Minor"
+  },
+  {
+    "req_id": "REQ-SF-05",
+    "issue_type": "Khong kiem thu duoc",
+    "srs_quote": "Giỏ hàng hiển thị nhanh.",
+    "kb_quote": "",
+    "explanation": "Yêu cầu thiếu Tiêu chí chấp nhận và không định lượng được thế nào là 'hiển thị nhanh', dẫn đến không thể thiết lập kịch bản kiểm thử tự động hay thủ công để kiểm chứng.",
+    "clarification_question": "Xin BA cung cấp tiêu chí chấp nhận cụ thể (Acceptance Criteria) hoặc chỉ số đo lường hiệu năng cho yêu cầu hiển thị giỏ hàng.",
+    "severity": "Minor"
+  },
+  {
+    "req_id": "REQ-SF-15",
+    "issue_type": "Mau thuan",
+    "srs_quote": "Phí vận chuyển: 25.000đ nội thành, 35.000đ tỉnh khác; miễn phí vận chuyển cho đơn từ 300.000đ.",
+    "kb_quote": "Miễn phí vận chuyển: cho đơn có giá trị hàng từ 500.000đ trở lên, tính sau khi áp dụng mã giảm giá.",
+    "explanation": "Mức giá trị đơn hàng để được miễn phí vận chuyển trong SRS là từ 300.000đ, trong khi KB-02 quy định là từ 500.000đ trở lên. Hai tài liệu đang mâu thuẫn về ngưỡng giá trị áp dụng miễn phí vận chuyển.",
+    "clarification_question": "Ngưỡng giá trị đơn hàng để được miễn phí vận chuyển chính xác là bao nhiêu: 300.000đ (theo SRS) hay 500.000đ (theo KB-02)?",
+    "severity": "Major"
+  },
+  {
+    "req_id": "REQ-SF-16",
+    "issue_type": "Mo ho",
+    "srs_quote": "Giao diện thanh toán thân thiện với người dùng.",
+    "kb_quote": "",
+    "explanation": "Yêu cầu 'thân thiện với người dùng' là một tiêu chí chất lượng chung chung, không có định nghĩa kỹ thuật hoặc tiêu chí đo lường rõ ràng.",
+    "clarification_question": "Thế nào là giao diện 'thân thiện với người dùng'? Có hướng dẫn thiết kế UI/UX cụ thể hoặc tiêu chí kiểm thử nào cho yêu cầu này không?",
+    "severity": "Minor"
+  },
+  {
+    "req_id": "REQ-SF-16",
+    "issue_type": "Khong kiem thu duoc",
+    "srs_quote": "Giao diện thanh toán thân thiện với người dùng.",
+    "kb_quote": "",
+    "explanation": "Do thiếu Tiêu chí chấp nhận và định nghĩa cụ thể, tester không thể viết test case khách quan để kiểm tra xem giao diện đã 'thân thiện' hay chưa.",
+    "clarification_question": "Xin BA cung cấp các tiêu chí cụ thể để kiểm tra tính thân thiện của giao diện thanh toán (ví dụ: số bước thao tác, độ tương phản, tính đáp ứng trên mobile...).",
+    "severity": "Minor"
+  }
+]
